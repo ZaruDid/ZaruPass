@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ZaruPass.Console/ZaruPass.Console.csproj" />
+  <Project Path="ZaruPass.Core/ZaruPass.Core.csproj" />
+  <Project Path="ZaruPass.Manager/ZaruPass.Manager.csproj" Id="5085d2d8-eaf6-492a-8df7-ed17c62774a2" />
+</Solution>

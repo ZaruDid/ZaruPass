@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PasswordGenerator" Version="3.0.0" />
+    <PackageReference Include="Spectre.Console" Version="0.57.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ZaruPass.Core\ZaruPass.Core.csproj" />
+  </ItemGroup>
+
+</Project>
