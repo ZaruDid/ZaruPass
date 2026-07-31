@@ -18,7 +18,7 @@ if(!configurator.HasConfig() || !File.Exists(configurator.Config.Directory))
 }
 configurator = new Configurator();
 var secretBytes = File.ReadAllBytes(configurator.Config.Directory);
-SECKRET = Encoder.Decode(secretBytes, configurator.SecretKey);
+SECKRET = Encoder.Decode(secretBytes, configurator.Config.SecretKey);
 
 var command = AnsiConsole.Prompt(
     new SelectionPrompt<string>()
@@ -71,11 +71,13 @@ void Configure()
         throw new Exception("Path not found");
     directory += "\\file";
 
+    var configPassword = AnsiConsole.Ask<string>("Введите пароль для шифрации основного пароля");
+
     var configurator = new Configurator();
-    configurator.SetConfigFile(new Config() { Directory = directory });
+    configurator.SetConfigFile(new Config() { Directory = directory, SecretKey = configPassword });
 
     var password = AnsiConsole.Ask<string>("Введите пароль для шифрации");
-    var passwordCode = Encoder.Encode(password, configurator.SecretKey);
+    var passwordCode = Encoder.Encode(password, configurator.Config.SecretKey);
 
     File.WriteAllBytes(directory, passwordCode);
     Console.ReadKey();

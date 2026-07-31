@@ -1,22 +1,22 @@
 ﻿using System.IO;
+using System.Text;
 using System.Text.Json;
-using ZaruPass.Core.Crypt;
 
 namespace ZaruPass.Core.Configuration;
 
 public class Configurator
 {
-    public string SecretKey = "SUPERMEGATOPSICKRET";
-    private const string _configName = "config";
+    private const string _configName = "config.json";
 
-    public Config Config;
+    public Config Config { get; private set; }
     public Configurator()
     {
         if(HasConfig())
         {
-            var configBytes = File.ReadAllBytes(_configName);
-            var configString = Encoder.Decode(configBytes, SecretKey);
-            Config = JsonSerializer.Deserialize<Config>(configString) ?? new Config();
+            var configText = File.ReadAllText(_configName);
+            Config = JsonSerializer.Deserialize<Config>(configText) ?? new Config();
+            Config.Directory = Crypt.Encoder.Decode(Config.DirectoryBytes, Config.SecretKey);
+            Config.DirectoryBytes = new byte[0];
         }
         else
         {
@@ -26,9 +26,18 @@ public class Configurator
 
     public void SetConfigFile(Config config)
     {
-        var configJsonString = JsonSerializer.Serialize(config);
-        var configBytes = Encoder.Encode(configJsonString, SecretKey);
-        File.WriteAllBytes(_configName, configBytes);
+        Config = config;
+        config.DirectoryBytes = Crypt.Encoder.Encode(config.Directory, config.SecretKey);
+
+        //var dirextoryBytes = Crypt.Encoder.Encode(config.Directory, config.SecretKey);
+        //Config savedConfig = new Config()
+        //{
+        //    Directory = Encoding.UTF8.GetString(dirextoryBytes),
+        //    SecretKey = config.SecretKey,
+        //};
+
+        var configJsonString = JsonSerializer.Serialize(config, new JsonSerializerOptions() {WriteIndented = true});
+        File.WriteAllText(_configName, configJsonString);
     }
 
     public bool HasConfig()
