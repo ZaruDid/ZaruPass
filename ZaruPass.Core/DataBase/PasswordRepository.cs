@@ -1,49 +1,59 @@
-﻿using System.Collections;
-using System.Security.Policy;
+﻿using Microsoft.EntityFrameworkCore;
 using ZaruPass.Core.DataBase.Migrations;
 
 namespace ZaruPass.Core.DataBase
 {
     public class PasswordRepository
     {
+        private MyContext _context;
         public PasswordRepository()
         {
-            using (var context = new MyContext())
-            {
-                context.Database.EnsureCreated();
-            }
+            _context = new MyContext();
+            _context.Database.EnsureCreated();
+        }
+
+        public IEnumerable<Password> GetPasswords()
+        {
+            return _context.Passwords.ToList();
+        }
+
+        public void ClearPasswords()
+        {
+            _context.Passwords.ExecuteDelete();
+        }
+
+        public void DeletePassword(Password password)
+        {
+            _context.Passwords.Remove(password);
+            _context.SaveChanges();
+        }
+
+        public Password? GetBySite(string site)
+        {
+            return _context.Passwords.Where(entity => entity.Site == site).FirstOrDefault();
         }
 
         public byte[]? GetPasswordBySite(string site)
         {
-            using (var context = new MyContext())
-            {
-                var data = context.Passwords.Where(entity => entity.Site == site).FirstOrDefault();
-                return data?.Pass;
-            }
+            var data = _context.Passwords.Where(entity => entity.Site == site).FirstOrDefault();
+            return data?.Pass;
         }
 
         public void AddPassword(string site, byte[] password)
         {
-            using (var context = new MyContext())
-            {
-                var data = new Password() { Pass = password, Site = site };
-                context.Passwords.Add(data);
-                context.SaveChanges();
-            }
+            var data = new Password() { Pass = password, Site = site };
+            _context.Passwords.Add(data);
+            _context.SaveChanges();
         }
 
         public IEnumerable<string> GetSites()
         {
-            using (var context = new MyContext())
+            List<string> list = new List<string>();
+            foreach (var item in _context.Passwords)
             {
-                List<string> list = new List<string>();
-                foreach(var item in context.Passwords)
-                {
-                    list.Add(item.Site);
-                }
-                return list;
+                list.Add(item.Site);
             }
+            return list;
         }
     }
 }
