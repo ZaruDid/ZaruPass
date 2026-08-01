@@ -28,14 +28,6 @@ public class Configurator
     {
         Config = config;
         config.DirectoryBytes = Crypt.Encoder.Encode(config.Directory, config.SecretKey);
-
-        //var dirextoryBytes = Crypt.Encoder.Encode(config.Directory, config.SecretKey);
-        //Config savedConfig = new Config()
-        //{
-        //    Directory = Encoding.UTF8.GetString(dirextoryBytes),
-        //    SecretKey = config.SecretKey,
-        //};
-
         var configJsonString = JsonSerializer.Serialize(config, new JsonSerializerOptions() {WriteIndented = true});
         File.WriteAllText(_configName, configJsonString);
     }
