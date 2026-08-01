@@ -1,0 +1,2 @@
+# ZaruPass
+Simple password manager 
