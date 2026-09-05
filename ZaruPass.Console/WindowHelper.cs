@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Automation;
 
-namespace ZaruPass.Core
+namespace ZaruPass.Console
 {
     public class WindowHelper
     {

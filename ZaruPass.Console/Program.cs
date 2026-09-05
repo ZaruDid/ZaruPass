@@ -1,11 +1,12 @@
 ﻿using SharpHook;
 using System.Text.RegularExpressions;
 using WindowsInput;
-using ZaruPass.Core;
 using SharpHook.Data;
 using ZaruPass.Core.DataBase;
 using ZaruPass.Core.Crypt;
 using ZaruPass.Core.Configuration;
+using System.IO;
+using ZaruPass.Console;
 
 var configurator = new Configurator();
 byte[] passwordBytes = File.ReadAllBytes(configurator.Config.Directory);
