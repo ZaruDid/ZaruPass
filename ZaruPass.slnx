@@ -2,4 +2,13 @@
   <Project Path="ZaruPass.Console/ZaruPass.Console.csproj" />
   <Project Path="ZaruPass.Core/ZaruPass.Core.csproj" />
   <Project Path="ZaruPass.Manager/ZaruPass.Manager.csproj" Id="5085d2d8-eaf6-492a-8df7-ed17c62774a2" />
+  <Project Path="ZaruPass.Program/ZaruPass.Program.Android/ZaruPass.Program.Android.csproj" Id="6b743c67-effd-4f9b-b0a0-7365570c5b75">
+    <Deploy />
+  </Project>
+  <Project Path="ZaruPass.Program/ZaruPass.Program.Browser/ZaruPass.Program.Browser.csproj" Id="a4fe5dee-df90-4b28-b616-f9a907d580d1" />
+  <Project Path="ZaruPass.Program/ZaruPass.Program.Desktop/ZaruPass.Program.Desktop.csproj" Id="620dbfa3-8246-49eb-9966-b1c1b05bc736" />
+  <Project Path="ZaruPass.Program/ZaruPass.Program.iOS/ZaruPass.Program.iOS.csproj" Id="801cd00a-4f8e-4155-925f-9554ac6fa0ee">
+    <Deploy />
+  </Project>
+  <Project Path="ZaruPass.Program/ZaruPass.Program/ZaruPass.Program.csproj" Id="847ddd5a-b5f6-48cf-a806-aadad27d210f" />
 </Solution>

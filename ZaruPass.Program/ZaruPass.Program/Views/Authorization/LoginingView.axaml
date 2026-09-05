@@ -1,0 +1,81 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:vm="using:ZaruPass.Program.ViewModels"
+            mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+            x:Class="ZaruPass.Program.Views.LoginingView"
+            x:DataType="vm:LoginingViewModel">
+
+    <UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+			<Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+			<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+			<Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+			<Setter Property="FontSize" Value="70"></Setter>
+			<Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Styles>
+
+  <Design.DataContext>
+    <vm:LoginingViewModel />
+  </Design.DataContext>
+        <Grid>
+        <Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+			<RowDefinition></RowDefinition>
+			<RowDefinition></RowDefinition>
+			<RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Button 
+            Grid.Column="0" 
+            Grid.Row="0">1
+        </Button>
+
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="0">2
+        </Button>
+
+        <Button 
+            Grid.Column="2" 
+            Grid.Row="0">3
+        </Button>
+
+        <Button 
+            Grid.Column="0" 
+            Grid.Row="1">4
+        </Button>
+
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="1">5
+        </Button>
+
+        <Button 
+            Grid.Column="2" 
+            Grid.Row="1">6
+        </Button>
+
+        <Button 
+            Grid.Column="0" 
+            Grid.Row="2">7
+        </Button>
+
+        <Button 
+            Grid.Column="1" 
+            Grid.Row="2">8
+        </Button>
+
+        <Button 
+            Grid.Column="2" 
+            Grid.Row="2">9
+        </Button>
+    </Grid>
+</UserControl>
