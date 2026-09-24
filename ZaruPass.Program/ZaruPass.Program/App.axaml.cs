@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using System.Linq;
@@ -27,9 +26,9 @@ namespace ZaruPass.Program
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new MainView
+                singleViewPlatform.MainView = new AuthorizationView
                 {
-                    DataContext = new MainViewModel()
+                    DataContext = new AuthorizationWindowViewModel()
                 };
             }
 

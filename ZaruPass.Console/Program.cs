@@ -9,7 +9,7 @@ using System.IO;
 using ZaruPass.Console;
 
 var configurator = new Configurator();
-byte[] passwordBytes = File.ReadAllBytes(configurator.Config.Directory);
+byte[] passwordBytes = File.ReadAllBytes(configurator.Config.Path);
 string SECKRET = Encoder.Decode(passwordBytes, configurator.Config.SecretKey);
 
 var hook = new TaskPoolGlobalHook();

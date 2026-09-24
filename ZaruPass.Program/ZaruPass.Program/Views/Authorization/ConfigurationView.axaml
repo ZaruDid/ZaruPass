@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:ZaruPass.Program.ViewModels"
+             x:Class="ZaruPass.Program.Views.ConfigurationView"
+             x:DataType="vm:ConfigurationViewModel">
+
+
+    <UniformGrid
+                 Rows="4" Columns="2"
+                 ColumnSpacing="10"
+                 Margin="20" RowSpacing="20">
+        <Label VerticalContentAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold">Папка</Label>
+        <Button HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                Click="OpenFileButton_Clicked" 
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center"
+                FontSize="20"
+                FontWeight="Bold">Выбрать папку</Button>
+
+        <Label VerticalContentAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold">Ключ шифрования</Label>
+        <TextBox VerticalContentAlignment="Center"
+                 FontSize="20"
+                 Text="{Binding SecretKey}"></TextBox>
+
+        <Label VerticalContentAlignment="Center"
+               FontSize="20"
+               FontWeight="Bold">Ключ шифрования конфига</Label>
+        <TextBox VerticalContentAlignment="Center"
+                 FontSize="20"
+                 Text="{Binding SecretKeyForConfig}"></TextBox>
+
+        <Label></Label>
+        <Button HorizontalAlignment="Stretch" 
+                VerticalAlignment="Stretch" 
+                VerticalContentAlignment="Center" 
+                HorizontalContentAlignment="Center"
+                FontSize="20"
+                FontWeight="Bold"
+                Command="{Binding ConfigureCommand}">Далее</Button>
+    </UniformGrid>
+</UserControl>

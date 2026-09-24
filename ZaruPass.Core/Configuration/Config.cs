@@ -5,7 +5,10 @@ namespace ZaruPass.Core.Configuration;
 public class Config
 {
     [JsonIgnore]
-    public string Directory { get; set; }
-    public byte[] DirectoryBytes { get; set; }
+    public string Path { get; set; }
+    public byte[] PathBytes { get; set; }
     public string SecretKey { get; set; }
+    [JsonIgnore]
+    public int Pincode { get; set; }
+    public byte[] PincodeBytes { get; set; }
 }

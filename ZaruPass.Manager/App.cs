@@ -19,11 +19,11 @@ public class App
 
     public void Start()
     {
-        if (!_configurator.HasConfig() || !File.Exists(_configurator.Config.Directory))
+        if (!_configurator.HasConfig() || !File.Exists(_configurator.Config.Path))
         {
             Configure();
         }
-        var secretBytes = File.ReadAllBytes(_configurator.Config.Directory);
+        var secretBytes = File.ReadAllBytes(_configurator.Config.Path);
         _secret = Encoder.Decode(secretBytes, _configurator.Config.SecretKey);
 
         MainWindow();
@@ -156,7 +156,7 @@ public class App
             _secret = password;
         }
 
-        _configurator.SetConfigFile(new Config() { Directory = directory, SecretKey = configPassword });
+        _configurator.SetConfigFile(new Config() { Path = directory, SecretKey = configPassword });
 
         File.WriteAllBytes(directory, passwordCode);
         Console.ReadKey();
