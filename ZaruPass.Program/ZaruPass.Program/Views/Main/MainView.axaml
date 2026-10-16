@@ -6,14 +6,56 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ZaruPass.Program.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Design.DataContext>
-    <vm:MainViewModel />
-  </Design.DataContext>
+    <UserControl.Styles>
+		<Style Selector="Button">
+			<Setter Property="Background" Value="{DynamicResource color3}"></Setter>
+			<Setter Property="Foreground" Value="{DynamicResource color6}"></Setter>
+			<Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+			<Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+			<Setter Property="FontSize" Value="20"></Setter>
+			<Setter Property="FontWeight" Value="Bold"></Setter>
+        </Style>
+    </UserControl.Styles>
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.1*"></RowDefinition>
+			<RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Grid Background="{DynamicResource color1}">
+            <Label Foreground="{DynamicResource color6}"
+                   VerticalContentAlignment="Center"
+                   FontSize="20"
+                   FontWeight="Bold">ZaruPass</Label>
+        </Grid>
+        <Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="{Binding SideBarWigth}"></ColumnDefinition>
+				<ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-  <StackPanel>
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-	<ListBox ItemsSource="{Binding List}">
-  </ListBox>
-  </StackPanel>
+            <StackPanel Background="{DynamicResource color2}">
+                <Button Command="{Binding ToggleSideBarCommand}">☰</Button>
+            </StackPanel>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Sites}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                      <Grid>
+                          <Grid.ColumnDefinitions>
+							  <ColumnDefinition></ColumnDefinition>
+							  <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                          </Grid.ColumnDefinitions>
+
+						  <TextBlock Text="{Binding}"
+                                     VerticalAlignment="Center"
+                                     FontSize="20"/>
+                          <Button Grid.Column="1"
+                                  Command="{Binding $parent[ListBox].DataContext.SetToClipboardCommand}"
+                                  CommandParameter="{Binding}">
+                              COPED</Button>
+                      </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate></ListBox>
+        </Grid>
+    </Grid>
 </UserControl>

@@ -8,6 +8,6 @@ public partial class AuthorizationWindow : Window
     public AuthorizationWindow()
     {
         InitializeComponent();
-        DataContext = new AuthorizationWindowViewModel();
+        //DataContext = new AuthorizationWindowViewModel();
     }
 }

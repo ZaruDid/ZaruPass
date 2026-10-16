@@ -26,4 +26,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ZaruPass.Core\ZaruPass.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
 </Project>

@@ -8,6 +8,6 @@ public partial class LoginingView : UserControl
     public LoginingView()
     {
         InitializeComponent();
-        DataContext = new LoginingViewModel();
+        //if(DataContext is null) DataContext = new LoginingViewModel();
     }
 }

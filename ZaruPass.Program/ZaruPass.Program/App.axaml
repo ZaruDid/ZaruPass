@@ -12,4 +12,13 @@
     <Application.Styles>
         <FluentTheme />
     </Application.Styles>
+
+    <Application.Resources>
+		<SolidColorBrush x:Key="color1">#00030e</SolidColorBrush>
+		<SolidColorBrush x:Key="color2">#0b0e1a</SolidColorBrush>
+		<SolidColorBrush x:Key="color3">#2c1b2f</SolidColorBrush>
+		<SolidColorBrush x:Key="color4">#5e3a5c</SolidColorBrush>
+		<SolidColorBrush x:Key="color5">#b47a9a</SolidColorBrush>
+		<SolidColorBrush x:Key="color6">#f3e9ec</SolidColorBrush>
+    </Application.Resources>
 </Application>

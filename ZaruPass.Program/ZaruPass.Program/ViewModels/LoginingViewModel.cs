@@ -2,9 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
-using System.ComponentModel.DataAnnotations;
+using System;
 using System.Threading.Tasks;
-
 namespace ZaruPass.Program.ViewModels;
 
 partial class LoginingViewModel : ViewModelBase
@@ -13,6 +12,8 @@ partial class LoginingViewModel : ViewModelBase
     private string _pinCode;
     [ObservableProperty]
     private string _pinCodeStars;
+
+    public event Action<string> Event;
 
     [RelayCommand]
     public void AddSymbol(string value)
@@ -38,10 +39,11 @@ partial class LoginingViewModel : ViewModelBase
     [RelayCommand]
     public async Task Forward()
     {
-        if (_pinCode.Length < 4)
+        if (string.IsNullOrEmpty(_pinCode) || _pinCode.Length < 4)
         {
             await MessageBoxManager.GetMessageBoxStandard("Error", "Длина пинкода должна быть больше 4-х символов", ButtonEnum.Ok).ShowAsync();
             return;
         }
+        Event?.Invoke(_pinCode);
     }
 }

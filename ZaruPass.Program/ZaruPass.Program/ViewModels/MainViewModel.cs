@@ -1,29 +1,53 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Collections.ObjectModel;
+﻿using Avalonia.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ZaruPass.Core.Configuration;
+using ZaruPass.Core.DataBase;
 
-namespace ZaruPass.Program.ViewModels
+namespace ZaruPass.Program.ViewModels;
+
+public partial class MainViewModel : ViewModelBase
 {
-    public partial class MainViewModel : ViewModelBase
-    {
-        [ObservableProperty]
-        private string _greeting = "Welcome to Avalonia!";
-        [ObservableProperty]
-        private ObservableCollection<string> _list;
+    private const float _s = 0.05f;
+    private const float _s2 = 0.4f;
+    [ObservableProperty]
+    private IEnumerable<string> _sites;
+    [ObservableProperty]
+    private GridLength _sideBarWigth;
 
-        public MainViewModel()
+    public MainViewModel()
+    {
+        SideBarWigth = new GridLength(_s, GridUnitType.Star);
+        var repo = new PasswordRepository();
+        Sites = repo.GetSites();
+    }
+    [RelayCommand]
+    public void ToggleSideBar()
+    {
+        if (SideBarWigth.Value == _s)
         {
-            List = new ObservableCollection<string>()
-            {
-                "1",
-                "1",
-                "1",
-                "1",
-                "1",
-                "1",
-                "1",
-                "1",
-                "1"
-            };
+            SideBarWigth = new GridLength(_s2, GridUnitType.Star);
         }
+        else
+        {
+            SideBarWigth = new GridLength(_s, GridUnitType.Star);
+        }
+    }
+    [RelayCommand]
+    public async Task SetToClipboard(string? site)
+    {
+        var repo = new PasswordRepository();
+        byte[] passwordBytes = repo.GetPasswordBySite(site) ?? throw new ArgumentException("nullable password");
+
+        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+        var configurator = new Configurator(appDataPath);
+        string password = Core.Crypt.Encoder.Decode(passwordBytes, configurator.Config.SecretKey);
+
+        await Global.Clipboard?.SetText(password);
     }
 }

@@ -9,6 +9,6 @@ public class Config
     public byte[] PathBytes { get; set; }
     public string SecretKey { get; set; }
     [JsonIgnore]
-    public int Pincode { get; set; }
+    public string Pincode { get; set; }
     public byte[] PincodeBytes { get; set; }
 }

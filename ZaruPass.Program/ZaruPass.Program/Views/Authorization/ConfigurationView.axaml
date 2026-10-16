@@ -8,10 +8,14 @@
              x:DataType="vm:ConfigurationViewModel">
 
 
-    <UniformGrid
-                 Rows="4" Columns="2"
+    <Grid>
+		<UniformGrid
+                 Rows="4" 
+                 Columns="2"
                  ColumnSpacing="10"
-                 Margin="20" RowSpacing="20">
+                 Margin="20" 
+                 RowSpacing="20"
+                 IsVisible="{Binding IsVisiable}">
         <Label VerticalContentAlignment="Center"
                FontSize="20"
                FontWeight="Bold">Папка</Label>
@@ -44,6 +48,8 @@
                 HorizontalContentAlignment="Center"
                 FontSize="20"
                 FontWeight="Bold"
-                Command="{Binding ConfigureCommand}">Далее</Button>
-    </UniformGrid>
+                Command="{Binding ForwardCommand}">Далее</Button>
+        </UniformGrid>
+        <ContentControl Content="{Binding Page}"></ContentControl>
+    </Grid>
 </UserControl>

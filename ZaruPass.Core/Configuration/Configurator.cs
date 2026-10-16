@@ -55,7 +55,7 @@ public class Configurator
 
             if(Config.PincodeBytes != null)
             {
-                Config.Pincode = Convert.ToInt32(Crypt.Encoder.Decode(Config.PincodeBytes, Config.SecretKey));
+                Config.Pincode = Crypt.Encoder.Decode(Config.PincodeBytes, Config.SecretKey);
                 Config.PincodeBytes = new byte[0];
             }
         }
@@ -69,6 +69,7 @@ public class Configurator
     {
         Config = config;
         config.PathBytes = Crypt.Encoder.Encode(config.Path, config.SecretKey);
+        if(config.Pincode is not null) config.PincodeBytes = Crypt.Encoder.Encode(config.Pincode, config.SecretKey);
         var configJsonString = JsonSerializer.Serialize(config, new JsonSerializerOptions() {WriteIndented = true});
 
         Directory.CreateDirectory(Path.Combine(_folder));
