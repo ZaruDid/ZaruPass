@@ -1,10 +1,12 @@
 using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core.Plugins;
-using Avalonia.Markup.Xaml;
 using System.Linq;
-using ZaruPass.Program.ViewModels;
+using Avalonia.Markup.Xaml;
 using ZaruPass.Program.Views;
+using Avalonia.Data.Core.Plugins;
+using ZaruPass.Program.ViewModels;
+using Avalonia.Controls.ApplicationLifetimes;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace ZaruPass.Program
 {
@@ -17,26 +19,26 @@ namespace ZaruPass.Program
 
         public override void OnFrameworkInitializationCompleted()
         {
+            IHost host = Host.CreateDefaultBuilder()
+                .ConfigureServices(services =>
+                {
+                    services.AddProgramServices();
+                }).Build();
+            host.StartAsync();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-                // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
                 DisableAvaloniaDataAnnotationValidation();
-                //desktop.MainWindow = new AuthorizationWindow();
-                desktop.MainWindow = new MainWindow()
+                desktop.MainWindow = new AuthorizationWindow()
                 {
-                    DataContext = new MainViewModel()
+                    DataContext = host.Services.GetRequiredService<AuthorizationWindowViewModel>()
                 };
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                //singleViewPlatform.MainView = new AuthorizationView
-                //{
-                //    DataContext = new AuthorizationWindowViewModel()
-                //};
-                singleViewPlatform.MainView = new MainView
+                singleViewPlatform.MainView = new AuthorizationView
                 {
-                    DataContext = new MainViewModel()
+                    DataContext = host.Services.GetRequiredService<AuthorizationWindowViewModel>()
                 };
             }
 
@@ -45,11 +47,9 @@ namespace ZaruPass.Program
 
         private void DisableAvaloniaDataAnnotationValidation()
         {
-            // Get an array of plugins to remove
             var dataValidationPluginsToRemove =
                 BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-            // remove each entry found
             foreach (var plugin in dataValidationPluginsToRemove)
             {
                 BindingPlugins.DataValidators.Remove(plugin);

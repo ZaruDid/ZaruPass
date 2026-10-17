@@ -10,7 +10,7 @@ using ZaruPass.Console;
 
 var configurator = new Configurator();
 byte[] passwordBytes = File.ReadAllBytes(configurator.Config.Path);
-string SECKRET = Encoder.Decode(passwordBytes, configurator.Config.SecretKey);
+string SECKRET = Encoder.Decode(passwordBytes, configurator.Config.ConfigKey);
 
 var hook = new TaskPoolGlobalHook();
 hook.KeyPressed += (s, e) =>

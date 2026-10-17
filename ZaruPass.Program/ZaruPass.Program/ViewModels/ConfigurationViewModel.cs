@@ -1,6 +1,7 @@
 ﻿using Avalonia.Platform.Storage;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using System;
@@ -20,16 +21,27 @@ partial class ConfigurationViewModel : ViewModelBase
     private string _secretKey;
     [ObservableProperty]
     private string _secretKeyForConfig;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly Configurator _configurator;
+
+    public ConfigurationViewModel(IServiceProvider serviceProvider, Configurator configurator)
+    {
+        _serviceProvider = serviceProvider;
+        _configurator = configurator;
+    }
+
 
     public async void Configure(string pincode)
     {
-        string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-        var configurator = new Configurator(new Config { 
-            Path = _directory.TryGetLocalPath() + "\\File", 
-            SecretKey = _secretKeyForConfig,
-            Pincode = pincode
-        }, 
-        _secretKey, appDataPath, SaveBytes);
+        _configurator.SetSaveFunction(SaveBytes)
+            .SetSecretkey(_secretKey)
+            .SetConfigFile(new Config{
+                Path = _directory.TryGetLocalPath() + "\\File",
+                ConfigKey = _secretKeyForConfig,
+                Pincode = pincode
+            });
+        _configurator.Build();
+
 
         await MessageBoxManager.GetMessageBoxStandard("Success", "Успех", ButtonEnum.Ok).ShowAsync();
     }
@@ -53,12 +65,13 @@ partial class ConfigurationViewModel : ViewModelBase
         }
         IsVisiable = false;
 
-        var p = new LoginingViewModel();
+        var p = _serviceProvider.GetRequiredService<LoginingViewModel>();
         p.Event += Configure;
         Page = p;
     }
     private async void SaveBytes(string path, byte[] text)
     {
+        if (_directory is null) throw new ArgumentNullException("_directory can't be null"); 
         var file = await _directory.CreateFileAsync(path);
         using var stream = await file.OpenWriteAsync();
 

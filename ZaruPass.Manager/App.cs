@@ -24,7 +24,7 @@ public class App
             Configure();
         }
         var secretBytes = File.ReadAllBytes(_configurator.Config.Path);
-        _secret = Encoder.Decode(secretBytes, _configurator.Config.SecretKey);
+        _secret = Encoder.Decode(secretBytes, _configurator.Config.ConfigKey);
 
         MainWindow();
     }
@@ -156,7 +156,7 @@ public class App
             _secret = password;
         }
 
-        _configurator.SetConfigFile(new Config() { Path = directory, SecretKey = configPassword });
+        _configurator.SetConfigFile(new Config() { Path = directory, ConfigKey = configPassword });
 
         File.WriteAllBytes(directory, passwordCode);
         Console.ReadKey();

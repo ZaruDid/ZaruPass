@@ -7,7 +7,7 @@ public class Config
     [JsonIgnore]
     public string Path { get; set; }
     public byte[] PathBytes { get; set; }
-    public string SecretKey { get; set; }
+    public string ConfigKey { get; set; }
     [JsonIgnore]
     public string Pincode { get; set; }
     public byte[] PincodeBytes { get; set; }
