@@ -28,6 +28,16 @@ namespace ZaruPass.Core.DataBase
             _context.SaveChanges();
         }
 
+        public void DeletePassword(string site)
+        {
+            var password = _context.Passwords.Where(p => p.Site == site).FirstOrDefault();
+            if(password is not null)
+            {
+                _context.Passwords.Remove(password);
+                _context.SaveChanges();
+            }
+        }
+
         public Password? GetBySite(string site)
         {
             return _context.Passwords.Where(entity => entity.Site == site).FirstOrDefault();
@@ -54,6 +64,13 @@ namespace ZaruPass.Core.DataBase
                 list.Add(item.Site);
             }
             return list;
+        }
+
+        public void UpdatePassword(string site, byte[] newPassword)
+        {
+            var password = _context.Passwords.Where(p => p.Site == site).FirstOrDefault();
+            password?.Pass = newPassword;
+            _context.SaveChanges();
         }
     }
 }

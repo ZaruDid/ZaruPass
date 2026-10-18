@@ -30,5 +30,7 @@ public static class DI
         services.AddTransient<AuthorizationWindowViewModel>();
         services.AddTransient<ConfigurationViewModel>();
         services.AddTransient<LoginingViewModel>();
+        services.AddTransient<AddSiteViewModel>();
+        services.AddTransient<SitesListViewModel>();
     }
 }

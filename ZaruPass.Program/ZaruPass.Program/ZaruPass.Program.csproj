@@ -22,6 +22,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="MessageBox.Avalonia" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="PasswordGenerator" />
     <PackageReference Include="Serilog" />
     <PackageReference Include="Serilog.Extensions.Hosting" />
     <PackageReference Include="Serilog.Extensions.Logging" />

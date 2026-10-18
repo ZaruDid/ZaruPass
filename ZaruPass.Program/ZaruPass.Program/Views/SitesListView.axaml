@@ -1,0 +1,39 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:ZaruPass.Program.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ZaruPass.Program.Views.SitesListView"
+             x:DataType="vm:SitesListViewModel">
+    <ListBox ItemsSource="{Binding Sites}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                      <Grid>
+                          <Grid.ColumnDefinitions>
+							  <ColumnDefinition></ColumnDefinition>
+							  <ColumnDefinition Width="0.2*"></ColumnDefinition>
+							  <ColumnDefinition Width="0.1*"></ColumnDefinition>
+							  <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                          </Grid.ColumnDefinitions>
+
+						  <TextBlock Text="{Binding}"
+                                     VerticalAlignment="Center"
+                                     FontSize="20"/>
+
+                          <Button Grid.Column="1"
+                                  Command="{Binding $parent[ListBox].DataContext.ReGeneratePasswordCommand}"
+                                  CommandParameter="{Binding}">
+                              REGENERATE</Button>
+                          <Button Grid.Column="2"
+                                  Command="{Binding $parent[ListBox].DataContext.DeletePasswordCommand}"
+                                  CommandParameter="{Binding}">
+                              DELETE</Button>
+                          <Button Grid.Column="3"
+                                  Command="{Binding $parent[ListBox].DataContext.SetToClipboardCommand}"
+                                  CommandParameter="{Binding}">
+                              COPED</Button>
+                      </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate></ListBox>
+</UserControl>

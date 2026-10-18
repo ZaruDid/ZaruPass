@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using ZaruPass.Core.Configuration;
 using ZaruPass.Program.Features.Clipboard;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ZaruPass.Program.ViewModels;
 
@@ -15,21 +16,16 @@ public partial class MainViewModel : ViewModelBase
     private const float _s = 0.05f;
     private const float _s2 = 0.4f;
     [ObservableProperty]
-    private IEnumerable<string> _sites;
+    private ViewModelBase _mainBlock;
     [ObservableProperty]
     private GridLength _sideBarWigth;
-    private readonly PasswordRepository _repository;
-    private readonly IClipboardService _clipboard;
-    private readonly Configurator _configurator;
+    private readonly IServiceProvider _serviceProvider;
 
-    public MainViewModel(PasswordRepository repository, IClipboardService clipboard, Configurator configurator)
+    public MainViewModel(IServiceProvider serviceProvider)
     {
-        _repository = repository;
-        _clipboard = clipboard;
-        _configurator = configurator;
-
+        _serviceProvider = serviceProvider;
+        OpenSitesList();
         SideBarWigth = new GridLength(_s, GridUnitType.Star);
-        Sites = _repository.GetSites();
     }
     [RelayCommand]
     public void ToggleSideBar()
@@ -44,10 +40,13 @@ public partial class MainViewModel : ViewModelBase
         }
     }
     [RelayCommand]
-    public async Task SetToClipboard(string site)
+    public void OpenSitesList()
     {
-        byte[] passwordBytes = _repository.GetPasswordBySite(site) ?? throw new ArgumentException("nullable password");
-        string password = Core.Crypt.Encoder.Decode(passwordBytes, _configurator.Config.ConfigKey);
-        await _clipboard.SetText(password);
+        MainBlock = _serviceProvider.GetRequiredService<SitesListViewModel>();
+    }
+    [RelayCommand]
+    public void OpenAddSite()
+    {
+        MainBlock = _serviceProvider.GetRequiredService<AddSiteViewModel>();
     }
 }

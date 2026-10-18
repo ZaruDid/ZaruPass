@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using ZaruPass.Core.Crypt;
 using ZaruPass.Core.DataBase.Migrations;
 
 namespace ZaruPass.Core.Configuration;
@@ -102,6 +103,11 @@ public class Configurator
     {
         string filePath = Path.Combine(_folder, _configName);
         return File.Exists(filePath);
+    }
+    public string GetSecretKey()
+    {
+        string key = Crypt.Encoder.Decode(File.ReadAllBytes(Config.Path), Config.ConfigKey); 
+        return key;
     }
     private void SaveConfig()
     {

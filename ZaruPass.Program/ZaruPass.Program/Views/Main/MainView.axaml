@@ -36,26 +36,12 @@
 
             <StackPanel Background="{DynamicResource color2}">
                 <Button Command="{Binding ToggleSideBarCommand}">☰</Button>
+                <Button Command="{Binding OpenSitesListCommand}">⌂</Button>
+                <Button Command="{Binding OpenAddSiteCommand}">+</Button>
             </StackPanel>
-            <ListBox Grid.Column="1" ItemsSource="{Binding Sites}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                      <Grid>
-                          <Grid.ColumnDefinitions>
-							  <ColumnDefinition></ColumnDefinition>
-							  <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                          </Grid.ColumnDefinitions>
 
-						  <TextBlock Text="{Binding}"
-                                     VerticalAlignment="Center"
-                                     FontSize="20"/>
-                          <Button Grid.Column="1"
-                                  Command="{Binding $parent[ListBox].DataContext.SetToClipboardCommand}"
-                                  CommandParameter="{Binding}">
-                              COPED</Button>
-                      </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate></ListBox>
+            <ContentControl Grid.Column="1"
+                            Content="{Binding MainBlock}"></ContentControl>
         </Grid>
     </Grid>
 </UserControl>
