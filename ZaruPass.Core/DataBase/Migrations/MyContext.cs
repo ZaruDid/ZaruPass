@@ -17,7 +17,7 @@ public partial class MyContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite($"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ZaruPass\\db.db")}");
+        optionsBuilder.UseSqlite($"Data Source={Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"ZaruPass" ,"db.db")}");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

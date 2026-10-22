@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using System;
+using System.IO;
 using ZaruPass.Core.Configuration;
 
 namespace ZaruPass.Program.ViewModels;
@@ -36,7 +37,7 @@ partial class ConfigurationViewModel : ViewModelBase
         _configurator.SetSaveFunction(SaveBytes)
             .SetSecretkey(_secretKey)
             .SetConfigFile(new Config{
-                Path = _directory.TryGetLocalPath() + "\\File",
+                Path = Path.Combine(_directory.Path.LocalPath,"File"),
                 ConfigKey = _secretKeyForConfig,
                 Pincode = pincode
             });
@@ -71,8 +72,10 @@ partial class ConfigurationViewModel : ViewModelBase
     }
     private async void SaveBytes(string path, byte[] text)
     {
+        string name = Path.GetFileName(path);
+
         if (_directory is null) throw new ArgumentNullException("_directory can't be null"); 
-        var file = await _directory.CreateFileAsync(path);
+        var file = await _directory.CreateFileAsync(name);
         using var stream = await file.OpenWriteAsync();
 
         await stream.WriteAsync(text);

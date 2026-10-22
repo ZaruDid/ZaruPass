@@ -13,7 +13,7 @@ namespace ZaruPass.Program.ViewModels;
 
 public partial class MainViewModel : ViewModelBase
 {
-    private const float _s = 0.05f;
+    private const float _s = 0.1f;
     private const float _s2 = 0.4f;
     [ObservableProperty]
     private ViewModelBase _mainBlock;
